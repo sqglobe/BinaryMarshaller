@@ -1,16 +1,16 @@
 package org.binarymarshaller.reflect.exception;
 
+public class InitException extends Exception {
 
-public class InitException extends Exception{
-    public InitException(Throwable th){
+    public InitException(Throwable th) {
         super(th);
     }
-    
-    public InitException(String m){
+
+    public InitException(String m) {
         super(m);
     }
-    
-    public InitException(String m, Throwable th){
+
+    public InitException(String m, Throwable th) {
         super(m, th);
     }
 }

@@ -1,7 +1,6 @@
 package org.binarymarshaller.reflect.exception;
 
-
-public class CallException extends Exception{
+public class CallException extends Exception {
 
     public CallException(Throwable th) {
         super(th);

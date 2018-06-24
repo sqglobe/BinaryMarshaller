@@ -6,7 +6,6 @@ import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import org.binarymarshaller.reflect.exception.CallException;
 
-
 public class ByteInvoker implements Invoker {
 
     @Override
@@ -32,7 +31,7 @@ public class ByteInvoker implements Invoker {
     @Override
     public void invokeGet(Object obj, Method get, ByteBuffer arr, int start, int size) throws CallException {
         try {
-            byte res = (Byte)get.invoke(obj);
+            byte res = (Byte) get.invoke(obj);
             arr.put(start, res);
         } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
             throw new CallException(ex);

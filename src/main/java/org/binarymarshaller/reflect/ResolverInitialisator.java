@@ -11,20 +11,19 @@ import org.binarymarshaller.reflect.invokers.Invoker;
 import org.binarymarshaller.reflect.invokers.ShortInvoker;
 
 public class ResolverInitialisator {
-    
+
     private final PojoBuilderFactory wrapperFactory;
-    
-    
-    public ResolverInitialisator(){
+
+    public ResolverInitialisator() {
         List<Invoker> invokers = new ArrayList<>();
         invokers.add(new ByteInvoker());
         invokers.add(new IntegerInvoker());
         invokers.add(new ShortInvoker());
-        
+
         wrapperFactory = new PojoBuilderFactoryImpl(new MethodProxyFactoryImpl(), invokers);
     }
-    
-    public ClassResolver init(String name) throws InitException{
+
+    public ClassResolver init(String name) throws InitException {
         return new ClassResolver(name, wrapperFactory);
     }
 }

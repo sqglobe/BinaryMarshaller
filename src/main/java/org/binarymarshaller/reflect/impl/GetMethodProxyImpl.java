@@ -6,13 +6,13 @@ import org.binarymarshaller.reflect.GetMethodProxy;
 import org.binarymarshaller.reflect.exception.CallException;
 import org.binarymarshaller.reflect.invokers.Invoker;
 
-public class GetMethodProxyImpl implements GetMethodProxy{
+public class GetMethodProxyImpl implements GetMethodProxy {
 
     private Invoker mInvoker;
     private Method mMethod;
     private int mStart;
     private int mLength;
-    
+
     @Override
     public void callGet(Object obj, ByteBuffer data) throws CallException {
         mInvoker.invokeGet(obj, mMethod, data, mStart, mLength);
@@ -33,5 +33,5 @@ public class GetMethodProxyImpl implements GetMethodProxy{
         mStart = start;
         mLength = length;
     }
-    
+
 }

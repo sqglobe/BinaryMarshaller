@@ -6,15 +6,13 @@ import org.binarymarshaller.reflect.exception.CallException;
 import org.binarymarshaller.reflect.invokers.Invoker;
 import org.binarymarshaller.reflect.SetMethodProxy;
 
+public class SetMethodProxyImpl implements SetMethodProxy {
 
-public class SetMethodProxyImpl implements SetMethodProxy{
-
-    
     private Invoker mInvoker;
     private Method mMethod;
     private int mStart;
     private int mLength;
-    
+
     @Override
     public void setInvoker(Invoker invoker) {
         mInvoker = invoker;
@@ -35,5 +33,5 @@ public class SetMethodProxyImpl implements SetMethodProxy{
     public void callSet(Object obj, ByteBuffer data) throws CallException {
         mInvoker.invokeSet(obj, mMethod, data, mStart, mLength);
     }
-    
+
 }

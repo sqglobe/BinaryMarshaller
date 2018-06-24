@@ -9,21 +9,21 @@ import org.binarymarshaller.reflect.exception.MakeException;
 import org.reflections.Reflections;
 
 public class ClassResolver {
-    
+
     private final Map<Integer, PojoBuilder> mWrappers = new HashMap<>();
-    
-    public ClassResolver(String pack, PojoBuilderFactory factory) throws InitException{
-       Reflections reflections = new Reflections(pack); 
-       Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(BinaryParams.class);
-       fill(annotated, factory);
-    }    
-    
-    public PojoBuilder getWrapper(Integer type){
+
+    public ClassResolver(String pack, PojoBuilderFactory factory) throws InitException {
+        Reflections reflections = new Reflections(pack);
+        Set<Class<?>> annotated = reflections.getTypesAnnotatedWith(BinaryParams.class);
+        fill(annotated, factory);
+    }
+
+    public PojoBuilder getWrapper(Integer type) {
         return mWrappers.get(type);
     }
-    
-    private  void fill(Set<Class<?>> annotated, PojoBuilderFactory factory) throws InitException{
-        for(Class<?> cls : annotated){
+
+    private void fill(Set<Class<?>> annotated, PojoBuilderFactory factory) throws InitException {
+        for (Class<?> cls : annotated) {
             BinaryParams param = cls.getAnnotation(BinaryParams.class);
             try {
                 mWrappers.put(param.type(), factory.make(cls, param.size(), param.skip()));
