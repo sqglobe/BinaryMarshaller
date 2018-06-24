@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.binarymarshaller.reflect.invokers;
 
 import java.lang.reflect.InvocationTargetException;
@@ -11,10 +6,7 @@ import java.lang.reflect.Type;
 import java.nio.ByteBuffer;
 import org.binarymarshaller.reflect.exception.CallException;
 
-/**
- *
- * @author nikolay
- */
+
 public class ShortInvoker implements Invoker{
 
     @Override

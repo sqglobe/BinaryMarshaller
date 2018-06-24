@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.binarymarshaller.reflect.impl;
 
 import java.lang.reflect.Field;
@@ -20,10 +15,6 @@ import org.binarymarshaller.reflect.MethodProxyFactory;
 import org.binarymarshaller.reflect.SetMethodProxy;
 import org.binarymarshaller.reflect.PojoBuilderFactory;
 
-/**
- *
- * @author nick
- */
 public class PojoBuilderFactoryImpl implements PojoBuilderFactory{
     
     private final MethodProxyFactory mFactory;

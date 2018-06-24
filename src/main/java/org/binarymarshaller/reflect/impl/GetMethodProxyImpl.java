@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.binarymarshaller.reflect.impl;
 
 import java.lang.reflect.Method;
@@ -11,10 +6,6 @@ import org.binarymarshaller.reflect.GetMethodProxy;
 import org.binarymarshaller.reflect.exception.CallException;
 import org.binarymarshaller.reflect.invokers.Invoker;
 
-/**
- *
- * @author nick
- */
 public class GetMethodProxyImpl implements GetMethodProxy{
 
     private Invoker mInvoker;

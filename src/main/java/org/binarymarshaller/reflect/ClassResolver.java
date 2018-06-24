@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.binarymarshaller.reflect;
 
 import java.util.HashMap;
@@ -13,10 +8,6 @@ import org.binarymarshaller.reflect.exception.InitException;
 import org.binarymarshaller.reflect.exception.MakeException;
 import org.reflections.Reflections;
 
-/**
- *
- * @author nick
- */
 public class ClassResolver {
     
     private final Map<Integer, PojoBuilder> mWrappers = new HashMap<>();

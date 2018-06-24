@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.binarymarshaller.reflect;
 
 import java.util.ArrayList;
@@ -15,10 +10,6 @@ import org.binarymarshaller.reflect.invokers.IntegerInvoker;
 import org.binarymarshaller.reflect.invokers.Invoker;
 import org.binarymarshaller.reflect.invokers.ShortInvoker;
 
-/**
- *
- * @author nick
- */
 public class ResolverInitialisator {
     
     private final PojoBuilderFactory wrapperFactory;
