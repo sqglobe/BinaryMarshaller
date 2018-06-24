@@ -3,6 +3,7 @@ package org.binarymarshaller.reflect;
 import java.util.ArrayList;
 import java.util.List;
 import org.binarymarshaller.reflect.exception.InitException;
+import org.binarymarshaller.reflect.impl.MethodExtractorImpl;
 import org.binarymarshaller.reflect.impl.MethodProxyFactoryImpl;
 import org.binarymarshaller.reflect.impl.PojoBuilderFactoryImpl;
 import org.binarymarshaller.reflect.invokers.ByteInvoker;
@@ -19,8 +20,10 @@ public class ResolverInitialisator {
         invokers.add(new ByteInvoker());
         invokers.add(new IntegerInvoker());
         invokers.add(new ShortInvoker());
+        
+        MethodExtractor extractor = new MethodExtractorImpl(new MethodProxyFactoryImpl(), invokers);
 
-        wrapperFactory = new PojoBuilderFactoryImpl(new MethodProxyFactoryImpl(), invokers);
+        wrapperFactory = new PojoBuilderFactoryImpl(extractor);
     }
 
     public ClassResolver init(String name) throws InitException {

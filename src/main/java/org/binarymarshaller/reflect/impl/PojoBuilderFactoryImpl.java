@@ -1,28 +1,23 @@
 package org.binarymarshaller.reflect.impl;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.binarymarshaller.annotations.BinaryParam;
 import org.binarymarshaller.reflect.GetMethodProxy;
+import org.binarymarshaller.reflect.MethodExtractor;
 import org.binarymarshaller.reflect.PojoBuilder;
 import org.binarymarshaller.reflect.exception.MakeException;
-import org.binarymarshaller.reflect.invokers.Invoker;
-import org.binarymarshaller.reflect.MethodProxyFactory;
 import org.binarymarshaller.reflect.SetMethodProxy;
 import org.binarymarshaller.reflect.PojoBuilderFactory;
 
 public class PojoBuilderFactoryImpl implements PojoBuilderFactory {
 
-    private final MethodProxyFactory mFactory;
-    private final List<Invoker> mInvokers;
+    private final MethodExtractor mExtractor;
 
-    public PojoBuilderFactoryImpl(MethodProxyFactory factory, List<Invoker> invokers) {
-        mFactory = factory;
-        mInvokers = invokers;
+    public PojoBuilderFactoryImpl(MethodExtractor extractor) {
+        mExtractor = extractor;
     }
 
     @Override
@@ -36,8 +31,8 @@ public class PojoBuilderFactoryImpl implements PojoBuilderFactory {
             if (field.isAnnotationPresent(BinaryParam.class)) {
                 String name = field.getName();
                 BinaryParam p = field.getAnnotation(BinaryParam.class);
-                SetMethodProxy set = getSetProxy(cls, name, p);
-                GetMethodProxy get = getGetProxy(cls, name, p);
+                SetMethodProxy set = mExtractor.getSetProxy(cls, name, p);
+                GetMethodProxy get = mExtractor.getGetProxy(cls, name, p);
                 if (null != get) {
                     getMethods.add(get);
                 }
@@ -57,53 +52,11 @@ public class PojoBuilderFactoryImpl implements PojoBuilderFactory {
             throw new MakeException("Params for class " + cls.getName() + " not cover full byte array");
         }
 
-        return new PojoBuilder(cls, setMethods, getMethods, size);
+        return build(cls, setMethods, getMethods, size);
     }
 
-    private SetMethodProxy getSetProxy(Class cls, String name, BinaryParam p) throws MakeException {
-        Method m = getMethod(cls, name, "set", 1);
-        if (null == m) {
-            return null;
-        }
-        Invoker inv = getInvoker(m.getGenericParameterTypes()[0]);
-        if (!inv.isOk(p.length())) {
-            throw new MakeException(String.format("Bad length value for method %s:%s param %s, needed  size : %d", cls.getName(), m.getName(), m.getGenericParameterTypes()[0].getTypeName(), p.length()));
-        }
-        return mFactory.getMethodSet(inv, m, p.begin(), p.length());
-    }
-
-    private GetMethodProxy getGetProxy(Class cls, String name, BinaryParam p) throws MakeException {
-        Method m = getMethod(cls, name, "get", 0);
-        if (null == m) {
-            return null;
-        }
-        Invoker inv = getInvoker(m.getGenericReturnType());
-        if (!inv.isOk(p.length())) {
-            throw new MakeException(String.format("Bad length value for method %s:%s param %s, needed  size : %d", cls.getName(), m.getName(), m.getGenericParameterTypes()[0].getTypeName(), p.length()));
-        }
-        return mFactory.getMethodGet(inv, m, p.begin(), p.length());
-    }
-
-    private Method getMethod(Class cls, String fieldName, String prefix, int paramCount) throws MakeException {
-        String search = prefix + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-
-        for (Method method : cls.getMethods()) {
-            if (search.equals(method.getName()) && method.getGenericParameterTypes().length == paramCount) {
-                return method;
-            }
-        }
-        return null;
-    }
-
-    private Invoker getInvoker(Type cls) throws MakeException {
-        for (Invoker invoker : mInvokers) {
-            if (invoker.isYour(cls)) {
-                return invoker;
-            }
-        }
-
-        throw new MakeException("Not found invoker for type " + cls.getTypeName());
-
+    protected PojoBuilder build(Class<?> cls, List<SetMethodProxy> setProxy, List<GetMethodProxy> getProxy, int size) {
+        return new PojoBuilder(cls, setProxy, getProxy, size);
     }
 
     private void fillUserPositions(boolean[] positions, int begin, int length) throws MakeException {
