@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package org.binarymarshaller.reflect.impl;
 
 import java.lang.reflect.Method;
@@ -16,10 +11,7 @@ import org.binarymarshaller.reflect.SetMethodProxy;
 import org.binarymarshaller.reflect.exception.MakeException;
 import org.binarymarshaller.reflect.invokers.Invoker;
 
-/**
- *
- * @author nick
- */
+
 public class MethodExtractorImpl implements MethodExtractor {
 
     private final MethodProxyFactory mFactory;
@@ -38,7 +30,7 @@ public class MethodExtractorImpl implements MethodExtractor {
         }
         Invoker inv = getInvoker(m.getGenericReturnType());
         if (!inv.isOk(p.length())) {
-            throw new MakeException(String.format("Bad length value for method %s:%s param %s, needed  size : %d", cls.getName(), m.getName(), m.getGenericParameterTypes()[0].getTypeName(), p.length()));
+            throw new MakeException(String.format("Bad length value for method %s:%s param %s, needed  size : %d", cls.getName(), m.getName(), m.getGenericReturnType().getTypeName(), p.length()));
         }
         return mFactory.getMethodGet(inv, m, p.begin(), p.length());
     }
