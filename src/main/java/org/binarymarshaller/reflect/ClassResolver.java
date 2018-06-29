@@ -26,9 +26,15 @@ public class ClassResolver {
         for (Class<?> cls : annotated) {
             BinaryParams param = cls.getAnnotation(BinaryParams.class);
             try {
+                if(mWrappers.containsKey(param.type())){
+                    throw new InitException(String.format("Duplicated with key: %d", param.type()));
+                }
+                cls.getDeclaredConstructor();
                 mWrappers.put(param.type(), factory.make(cls, param.size(), param.skip()));
-            } catch (MakeException ex) {
+            } catch (MakeException | SecurityException ex) {
                 throw new InitException(ex);
+            } catch (NoSuchMethodException ex) {
+                throw new InitException("Not found default constructor");
             }
         }
     }
