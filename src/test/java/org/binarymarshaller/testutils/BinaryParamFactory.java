@@ -13,7 +13,7 @@ import org.binarymarshaller.annotations.BinaryParam;
  * @author nick
  */
 public class BinaryParamFactory {
-    public static BinaryParam bild(int begin, int length){
+    public static BinaryParam bild(final int begin, final int length){
         return new BinaryParam() {
             @Override
             public int begin() {
