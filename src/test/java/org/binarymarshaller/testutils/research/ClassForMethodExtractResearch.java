@@ -29,6 +29,9 @@ public class ClassForMethodExtractResearch {
 
     public void setByteField(byte b) {}
     
+    public void setBooleanField(boolean b){}
+    public boolean getBooleanField(){return false;}
+    
     public void testNonSetGetMethod(){}
     
     public Boolean testNonInvokerMethod(){

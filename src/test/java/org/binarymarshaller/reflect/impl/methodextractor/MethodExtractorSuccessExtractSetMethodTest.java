@@ -41,7 +41,7 @@ public class MethodExtractorSuccessExtractSetMethodTest {
         return Arrays.asList(new Object[][] {
              {"shortField", "setShortField", 0, 2, shortInvoker, short.class},
              {"integerField", "setIntegerField", 1, 4, integerInvoker, int.class},
-             {"byteField", "setByteField", 5, 1, byteInvoker, char.class},
+             {"byteField", "setByteField", 5, 1, byteInvoker, byte.class},
            });
     }
     
