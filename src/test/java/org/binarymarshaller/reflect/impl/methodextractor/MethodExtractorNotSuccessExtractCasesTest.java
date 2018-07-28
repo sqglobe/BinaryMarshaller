@@ -28,7 +28,7 @@ import org.junit.Test;
  *
  * @author nick
  */
-public class MethodExtractorNotSuccessExtractCases {
+public class MethodExtractorNotSuccessExtractCasesTest {
     private static final ByteInvoker byteInvoker = new ByteInvoker();
     private static final IntegerInvoker integerInvoker = new IntegerInvoker();
     private static final ShortInvoker shortInvoker = new ShortInvoker();
