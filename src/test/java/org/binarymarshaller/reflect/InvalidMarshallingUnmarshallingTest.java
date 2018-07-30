@@ -49,7 +49,7 @@ public class InvalidMarshallingUnmarshallingTest {
         wrapper.make(buffer);
     }
 
-    @Test(expected = MakeException.class)
+    @Test(expected = InitException.class)
     public void test_unmarshalling_into_object_with_invalid_paramter_of_set_method_Exception_expected() throws InitException, MakeException, CallException{
         
         ClassResolver resolver = (new ResolverInitialisator()).init("org.binarymarshaller.testutils.research.invalid.invaliparams");
@@ -65,10 +65,11 @@ public class InvalidMarshallingUnmarshallingTest {
     public void test_mashalling_object_that_has_only_set_methods_Exception_expected() throws MakeException, CallException, InitException{
         ClassResolver resolver = (new ResolverInitialisator()).init("org.binarymarshaller.testutils.research.valid");
         PojoBuilder<ValidPojoWithSetMethods> wrapper = resolver.getWrapper(0x0003);
-        ByteBuffer buffer = ByteBuffer.allocate(7);
-        buffer.putInt(type);
-        buffer.put(isok);
-        buffer.putShort(length);
-        wrapper.make(buffer);
+        ValidPojoWithSetMethods obj = new ValidPojoWithSetMethods();
+        obj.setIsok(isok);
+        obj.setLength(length);
+        obj.setType(type);
+        
+        wrapper.pack(obj);
     }
 }

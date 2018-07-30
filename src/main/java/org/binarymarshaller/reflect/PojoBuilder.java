@@ -33,6 +33,10 @@ public class PojoBuilder<T> {
         if (mSize != data.capacity()) {
             throw new MakeException(String.format("Get message with capaciity(%d) not equal to defined for class (%d)", data.capacity(), mSize));
         }
+        
+        if(mSetProxy.isEmpty()){
+            throw new MakeException("For this pojo set methods is not defined");
+        }
 
         try {
 
@@ -49,6 +53,9 @@ public class PojoBuilder<T> {
 
     public ByteBuffer pack(T obj) throws MakeException, CallException {
         ByteBuffer buff = ByteBuffer.allocate(mSize);
+        if(mGetProxy.isEmpty()){
+            throw new MakeException("For this pojo get methods is not defined");
+        }
         try {
             for (GetMethodProxy wrapper : mGetProxy) {
                 wrapper.callGet(obj, buff);
