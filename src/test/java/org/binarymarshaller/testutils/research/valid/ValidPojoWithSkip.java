@@ -12,7 +12,7 @@ import org.binarymarshaller.annotations.BinaryParams;
  *
  * @author nick
  */
-@BinaryParams(type = 0x0001, size = 10, skip = 7)
+@BinaryParams(type = 0x0001, size = 11, skip = 7)
 public class ValidPojoWithSkip {
     @BinaryParam(begin = 0, length = 4)
     private int type;

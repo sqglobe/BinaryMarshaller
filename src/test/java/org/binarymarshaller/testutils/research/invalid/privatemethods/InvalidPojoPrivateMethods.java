@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.binarymarshaller.testutils.research.valid;
+package org.binarymarshaller.testutils.research.invalid.privatemethods;
 
 import org.binarymarshaller.annotations.BinaryParam;
 import org.binarymarshaller.annotations.BinaryParams;
@@ -12,40 +12,28 @@ import org.binarymarshaller.annotations.BinaryParams;
  *
  * @author nick
  */
-
 @BinaryParams(type = 0x0002, size = 7)
-public class ValidPojoWithGetMethods {
+public class InvalidPojoPrivateMethods {
     @BinaryParam(begin = 0, length = 4)
-    private int type;
+    public int type;
     
     @BinaryParam(begin = 4, length = 1)
-    private byte isok;
+    public byte isok;
     
     @BinaryParam(begin = 5, length = 2)
-    private short length;
+    public short length;
 
-    public ValidPojoWithGetMethods(int type, byte isok, short length) {
+    private void setType(int type) {
         this.type = type;
+    }
+
+    public void setIsok(byte isok) {
         this.isok = isok;
+    }
+
+    public void setLength(short length) {
         this.length = length;
     }
-
-    public ValidPojoWithGetMethods() {
-    }
     
-    
-
-    public int getType() {
-        return type;
-    }
-
-    public byte getIsok() {
-        return isok;
-    }
-
-    public short getLength() {
-        return length;
-    }
-
     
 }
