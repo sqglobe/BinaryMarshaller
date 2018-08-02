@@ -39,8 +39,8 @@ public class PojoBuilderFactoryImpl implements PojoBuilderFactory {
                     throw new MakeException("Dnt defined nor set or get method");
                 }
                 
-                addMethod(getMethods, get, getPositions, p);
-                addMethod(setMethods, set, setPositions, p);
+                addMethod(getMethods, get, getPositions, p, size);
+                addMethod(setMethods, set, setPositions, p, size);
                 
             }
         }
@@ -49,17 +49,17 @@ public class PojoBuilderFactoryImpl implements PojoBuilderFactory {
         return new PojoBuilder(cls, setMethods, getMethods, size);
     }
     
-    private <T extends MethodProxy> void addMethod(List<T> methods, T method,  BitSet positions, BinaryParam p) throws MakeException{
+    private <T extends MethodProxy> void addMethod(List<T> methods, T method,  BitSet positions, BinaryParam p, int size) throws MakeException{
          if (null != method) {
             methods.add(method);
-            fillUserPositions(positions, p.begin(), p.length());
+            fillUserPositions(positions, p.begin(), p.length(), size);
          }
     }
 
 
-    private void fillUserPositions(BitSet positions, int begin, int length) throws MakeException {
-        if (begin < 0 || length < 0 || (begin + length) > positions.size()) {
-            throw new MakeException(String.format("Invalid begin/length parameters. Begin: %d, lenth: %d, byte array length: %d", begin, length, positions.size()));
+    private void fillUserPositions(BitSet positions, int begin, int length, int size) throws MakeException {
+        if (begin < 0 || length < 0 || (begin + length) > size || positions.cardinality() != begin) {
+            throw new MakeException(String.format("Invalid begin/length parameters. Begin: %d, lenth: %d, byte array length: %d", begin, length, size));
         }
         
         positions.set(begin, begin + length);
